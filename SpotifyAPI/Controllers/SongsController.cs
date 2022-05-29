@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using SpotifyAPI.Models;
 using SpotifyAPI.Models.DTOs;
 using SpotifyAPI.Repository.IRepository;
 using System.Collections.Generic;
@@ -33,7 +34,7 @@ namespace SpotifyAPI.Controllers
             return Ok(songDto);
         }
 
-        [HttpGet]
+        [HttpGet("{songId:int}", Name = "GetSong")]
         public IActionResult GetSong(int songId)
         {
             var song = _songRepo.GetSong(songId);
@@ -47,6 +48,30 @@ namespace SpotifyAPI.Controllers
             songDto = _mapper.Map<SongDto>(song);
 
             return Ok(songDto);
+        }
+
+        [HttpPost]
+        public IActionResult CreateSong([FromBody] SongDto songDto)
+        {
+            if (songDto == null)
+            {
+                return BadRequest(ModelState);
+            }
+            if (_songRepo.SongExists(songDto.Title))
+            {
+                ModelState.AddModelError("","Song already Exists!");
+                return StatusCode(404, ModelState);
+            }
+
+            var songObj = _mapper.Map<Song>(songDto);
+
+            if (!_songRepo.CreateSong(songObj))
+            {
+                ModelState.AddModelError("", $"Couldnt save the song {songObj.Title}");
+                return StatusCode(500,ModelState);
+            }
+
+            return CreatedAtRoute("GetSong", new { songId = songObj.Id}, songObj);
         }
     }
 }
