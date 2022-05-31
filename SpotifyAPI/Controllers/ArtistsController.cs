@@ -8,7 +8,7 @@ using System.Collections.Generic;
 
 namespace SpotifyAPI.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/v{version:apiVersion}/artists")]
     [ApiController]
     //[ApiExplorerSettings(GroupName = "SpotifyOpenAPISpecArtists")]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -70,7 +70,7 @@ namespace SpotifyAPI.Controllers
         [ProducesResponseType(201, Type = typeof(ArtistDto))]
         [ProducesResponseType(404)]
         [ProducesResponseType(500)]
-        public IActionResult CreateArtist([FromBody] ArtistDto artistDto)
+        public IActionResult CreateArtist([FromBody] ArtistCreateDto artistDto)
         {
             if (artistDto == null)
             {
@@ -90,7 +90,7 @@ namespace SpotifyAPI.Controllers
                 return StatusCode(500,ModelState);
             }
 
-            return CreatedAtRoute("GetArtist", new { artistId = artistObj.Id}, artistObj);
+            return CreatedAtRoute("GetArtist", new {version = HttpContext.GetRequestedApiVersion().ToString(), artistId = artistObj.Id}, artistObj);
         }
 
         [HttpPatch("{artistId:int}", Name = "UpdateArtist")]

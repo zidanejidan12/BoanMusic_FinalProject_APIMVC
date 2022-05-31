@@ -18,6 +18,9 @@ using AutoMapper;
 using SpotifyAPI.SpotifyMapper;
 using System.Reflection;
 using System.IO;
+using Microsoft.AspNetCore.Mvc.ApiExplorer;
+using Microsoft.Extensions.Options;
+using Swashbuckle.AspNetCore.SwaggerGen;
 
 namespace SpotifyAPI
 {
@@ -39,26 +42,25 @@ namespace SpotifyAPI
             services.AddScoped<IArtistRepository, ArtistRepository>();
             services.AddScoped<IAlbumRepository, AlbumRepository>();
             services.AddAutoMapper(typeof(SpotifyMappings));
-            services.AddSwaggerGen(options =>
+            
+
+            services.AddApiVersioning(options =>
             {
-                options.SwaggerDoc("SpotifyOpenAPISpec",
-                    new Microsoft.OpenApi.Models.OpenApiInfo()
-                    {
-                        Title = "Spotify API",
-                        Version = "1",
-                        Description = "Project For PU",
-                    });
-                var xmlCommentFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
-                var cmlCommentsFullPath = Path.Combine(AppContext.BaseDirectory, xmlCommentFile);
-                options.IncludeXmlComments(cmlCommentsFullPath);
-
-
+                options.AssumeDefaultVersionWhenUnspecified = true;
+                options.DefaultApiVersion = new Microsoft.AspNetCore.Mvc.ApiVersion(1, 0);
+                options.ReportApiVersions = true;
             });
+            services.AddVersionedApiExplorer(options =>
+            {
+                options.GroupNameFormat = "'v'VVV";
+            });
+            services.AddTransient<IConfigureOptions<SwaggerGenOptions>, ConfigureSwaggerOptions>();
+            services.AddSwaggerGen();
             services.AddControllers();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env,IApiVersionDescriptionProvider provider)
         {
             if (env.IsDevelopment())
             {
@@ -69,11 +71,21 @@ namespace SpotifyAPI
             app.UseSwagger();
             app.UseSwaggerUI(options =>
             {
-                options.SwaggerEndpoint("/swagger/SpotifyOpenAPISpec/swagger.json", "Spotify API");
-                //options.SwaggerEndpoint("/swagger/SpotifyOpenAPISpecAlbums/swagger.json", "Spotify API Albums");
-                //options.SwaggerEndpoint("/swagger/SpotifyOpenAPISpecSongs/swagger.json", "Spotify API Songs");
-                options.RoutePrefix = "";
+                foreach (var desc in provider.ApiVersionDescriptions)
+                {
+                    options.SwaggerEndpoint($"/swagger/{desc.GroupName}/swagger.json",
+                    desc.GroupName.ToUpperInvariant());
+                    options.RoutePrefix = "";
+                }
             });
+
+            //app.UseSwaggerUI(options =>
+            //{
+            //    options.SwaggerEndpoint("/swagger/SpotifyOpenAPISpec/swagger.json", "Spotify API");
+            //    //options.SwaggerEndpoint("/swagger/SpotifyOpenAPISpecAlbums/swagger.json", "Spotify API Albums");
+            //    //options.SwaggerEndpoint("/swagger/SpotifyOpenAPISpecSongs/swagger.json", "Spotify API Songs");
+            //    options.RoutePrefix = "";
+            //});
 
             app.UseRouting();
 

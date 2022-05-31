@@ -8,7 +8,7 @@ using System.Collections.Generic;
 
 namespace SpotifyAPI.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/v{version:apiVersion}/songs")]
     [ApiController]
     //[ApiExplorerSettings(GroupName = "SpotifyOpenAPISpecSongs")]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -69,6 +69,31 @@ namespace SpotifyAPI.Controllers
             //    Id = song.Id,
             //    ReleaseDate = song.ReleaseDate,
             //}
+            return Ok(songDto);
+        }
+
+        /// <summary>
+        /// Getting all the songs in an album
+        /// </summary>
+        /// <param name="albumId">Id of an album</param>
+        /// <returns></returns>
+        [HttpGet("{albumId:int}", Name = "GetSongInAlbum")]
+        [ProducesResponseType(200, Type = typeof(SongDto))]
+        [ProducesResponseType(404)]
+        [ProducesDefaultResponseType]
+        public IActionResult GetSongInAlbum(int albumId)
+        {
+            var songList = _songRepo.GetAlbumSongs(albumId);
+
+            if (songList == null)
+            {
+                return NotFound();
+            }
+            var songDto = new List<SongDto>();
+            foreach (var song in songList)
+            {
+                songDto.Add(_mapper.Map<SongDto>(song));
+            }       
             return Ok(songDto);
         }
 
@@ -143,7 +168,6 @@ namespace SpotifyAPI.Controllers
             }
 
             return NoContent();
-
         }
     }
 }

@@ -8,7 +8,7 @@ using System.Collections.Generic;
 
 namespace SpotifyAPI.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/v{version:apiVersion}/albums")]
     [ApiController]
     //[ApiExplorerSettings(GroupName = "SpotifyOpenAPISpecAlbums")]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
