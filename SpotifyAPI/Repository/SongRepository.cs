@@ -37,13 +37,13 @@ namespace SpotifyAPI.Repository
         }
         public bool SongExists(string name)
         {
-            bool value = _db.Songs.Any(x=> x.Title.ToLower().Trim() == name.ToLower().Trim());
+            bool value = _db.Songs.Any(x => x.Title.ToLower().Trim() == name.ToLower().Trim());
             return value;
         }
 
         public bool SongExists(int id)
         {
-            return _db.Songs.Any(x=>x.Id== id);
+            return _db.Songs.Any(x => x.Id == id);
         }
         public bool Save()
         {
@@ -55,6 +55,5 @@ namespace SpotifyAPI.Repository
             _db.Songs.Update(song);
             return Save();
         }
-
     }
 }

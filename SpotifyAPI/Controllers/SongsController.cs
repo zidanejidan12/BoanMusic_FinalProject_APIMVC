@@ -73,5 +73,45 @@ namespace SpotifyAPI.Controllers
 
             return CreatedAtRoute("GetSong", new { songId = songObj.Id}, songObj);
         }
+
+        [HttpPatch("{songId:int}", Name = "UpdateSong")]
+        public IActionResult UpdateSong(int songId, [FromBody] SongDto songDto)
+        {
+            if (songDto == null || songId != songDto.Id)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var songObj = _mapper.Map<Song>(songDto);
+
+            if (!_songRepo.UpdateSong(songObj))
+            {
+                ModelState.AddModelError("", $"Couldnt update the song {songObj.Title}");
+                return StatusCode(500, ModelState);
+            }
+
+            return NoContent();
+
+        }
+
+        [HttpDelete("{songId:int}", Name = "DeleteSong")]
+        public IActionResult DeleteSong(int songId)
+        {
+            if (!_songRepo.SongExists(songId))
+            {
+                return NotFound();
+            }
+
+            var songObj = _songRepo.GetSong(songId);
+
+            if (!_songRepo.DeleteSong(songObj))
+            {
+                ModelState.AddModelError("", $"Couldnt delete the song {songObj.Title}");
+                return StatusCode(500, ModelState);
+            }
+
+            return NoContent();
+
+        }
     }
 }
