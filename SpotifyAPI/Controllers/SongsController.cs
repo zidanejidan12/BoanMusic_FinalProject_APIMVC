@@ -10,9 +10,11 @@ namespace SpotifyAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [ApiExplorerSettings(GroupName = "SpotifyOpenAPISpecSongs")]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public class SongsController : Controller
     {
-        private ISongRepository _songRepo;
+        private readonly ISongRepository _songRepo;
         private readonly IMapper _mapper;
 
         public SongsController(ISongRepository songRepo, IMapper mapper)
@@ -21,7 +23,13 @@ namespace SpotifyAPI.Controllers
             _mapper = mapper;
         }
 
+        /// <summary>
+        /// Get a list of all the songs.
+        /// </summary>
+        /// <returns></returns>
+
         [HttpGet]
+        [ProducesResponseType(200, Type = typeof(List<SongDto>))]
         public IActionResult GetSongs()
         {
             var songList = _songRepo.GetSongs();
@@ -34,7 +42,16 @@ namespace SpotifyAPI.Controllers
             return Ok(songDto);
         }
 
+        /// <summary>
+        /// Get a song by Id.
+        /// </summary>
+        /// <param name="songId"> The Id of the song </param>
+        /// <returns></returns>
+
         [HttpGet("{songId:int}", Name = "GetSong")]
+        [ProducesResponseType(200, Type = typeof(SongDto))]
+        [ProducesResponseType(404)]
+        [ProducesDefaultResponseType]
         public IActionResult GetSong(int songId)
         {
             var song = _songRepo.GetSong(songId);
@@ -46,12 +63,20 @@ namespace SpotifyAPI.Controllers
 
             var songDto = new SongDto();
             songDto = _mapper.Map<SongDto>(song);
-
+            //var songDto = new SongDto()
+            //{
+            //    Title = song.Title,
+            //    Id = song.Id,
+            //    ReleaseDate = song.ReleaseDate,
+            //}
             return Ok(songDto);
         }
 
         [HttpPost]
-        public IActionResult CreateSong([FromBody] SongDto songDto)
+        [ProducesResponseType(201, Type = typeof(SongDto))]
+        [ProducesResponseType(404)]
+        [ProducesResponseType(500)]
+        public IActionResult CreateSong([FromBody] SongCreateDto songDto)
         {
             if (songDto == null)
             {
@@ -75,7 +100,10 @@ namespace SpotifyAPI.Controllers
         }
 
         [HttpPatch("{songId:int}", Name = "UpdateSong")]
-        public IActionResult UpdateSong(int songId, [FromBody] SongDto songDto)
+        [ProducesResponseType(204)]       
+        [ProducesResponseType(404)]
+        [ProducesResponseType(500)]
+        public IActionResult UpdateSong(int songId, [FromBody] SongUpdateDto songDto)
         {
             if (songDto == null || songId != songDto.Id)
             {
@@ -95,6 +123,10 @@ namespace SpotifyAPI.Controllers
         }
 
         [HttpDelete("{songId:int}", Name = "DeleteSong")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status409Conflict)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public IActionResult DeleteSong(int songId)
         {
             if (!_songRepo.SongExists(songId))

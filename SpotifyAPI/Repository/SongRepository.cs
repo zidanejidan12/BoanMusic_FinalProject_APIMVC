@@ -1,4 +1,5 @@
-﻿using SpotifyAPI.Data;
+﻿using Microsoft.EntityFrameworkCore;
+using SpotifyAPI.Data;
 using SpotifyAPI.Models;
 using SpotifyAPI.Repository.IRepository;
 using System.Collections.Generic;
@@ -28,12 +29,12 @@ namespace SpotifyAPI.Repository
 
         public Song GetSong(int songId)
         {
-            return _db.Songs.FirstOrDefault(x => x.Id == songId);
+            return _db.Songs.Include(x => x.Album).ThenInclude(x => x.Artist).FirstOrDefault(x => x.Id == songId);
         }
 
         public ICollection<Song> GetSongs()
         {
-            return _db.Songs.OrderBy(x => x.Title).ToList();
+            return _db.Songs.Include(x => x.Album).ThenInclude(x=> x.Artist).OrderBy(x => x.Title).ToList();
         }
         public bool SongExists(string name)
         {
@@ -54,6 +55,11 @@ namespace SpotifyAPI.Repository
         {
             _db.Songs.Update(song);
             return Save();
+        }
+
+        public ICollection<Song> GetAlbumSongs(int albumId)
+        {
+            return _db.Songs.Include(x => x.Album).ThenInclude(x => x.Artist).Where(y => y.AlbumId == albumId).ToList();
         }
     }
 }

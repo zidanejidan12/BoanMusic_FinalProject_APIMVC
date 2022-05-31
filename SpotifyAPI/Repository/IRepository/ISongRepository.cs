@@ -6,6 +6,7 @@ namespace SpotifyAPI.Repository.IRepository
     public interface ISongRepository
     {
         ICollection<Song> GetSongs();
+        ICollection<Song> GetAlbumSongs(int albumId);
 
         Song GetSong(int songId);
         bool SongExists(string name);
