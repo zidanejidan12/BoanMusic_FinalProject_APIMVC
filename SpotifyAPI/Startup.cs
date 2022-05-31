@@ -41,24 +41,10 @@ namespace SpotifyAPI
             services.AddAutoMapper(typeof(SpotifyMappings));
             services.AddSwaggerGen(options =>
             {
-                options.SwaggerDoc("SpotifyOpenAPISpecArtists",
+                options.SwaggerDoc("SpotifyOpenAPISpec",
                     new Microsoft.OpenApi.Models.OpenApiInfo()
                     {
-                        Title = "Spotify API (Artist)",
-                        Version = "1",
-                        Description ="Project For PU",
-                    });               
-                options.SwaggerDoc("SpotifyOpenAPISpecAlbums",
-                    new Microsoft.OpenApi.Models.OpenApiInfo()
-                    {
-                        Title = "Spotify API (Album)",
-                        Version = "1",
-                        Description = "Project For PU",
-                    });
-                options.SwaggerDoc("SpotifyOpenAPISpecSongs",
-                    new Microsoft.OpenApi.Models.OpenApiInfo()
-                    {
-                        Title = "Spotify API (Song)",
+                        Title = "Spotify API",
                         Version = "1",
                         Description = "Project For PU",
                     });
@@ -83,9 +69,9 @@ namespace SpotifyAPI
             app.UseSwagger();
             app.UseSwaggerUI(options =>
             {
-                options.SwaggerEndpoint("/swagger/SpotifyOpenAPISpecArtists/swagger.json", "Spotify API Artists");
-                options.SwaggerEndpoint("/swagger/SpotifyOpenAPISpecAlbums/swagger.json", "Spotify API Albums");
-                options.SwaggerEndpoint("/swagger/SpotifyOpenAPISpecSongs/swagger.json", "Spotify API Songs");
+                options.SwaggerEndpoint("/swagger/SpotifyOpenAPISpec/swagger.json", "Spotify API");
+                //options.SwaggerEndpoint("/swagger/SpotifyOpenAPISpecAlbums/swagger.json", "Spotify API Albums");
+                //options.SwaggerEndpoint("/swagger/SpotifyOpenAPISpecSongs/swagger.json", "Spotify API Songs");
                 options.RoutePrefix = "";
             });
 

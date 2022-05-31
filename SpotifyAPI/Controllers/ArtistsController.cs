@@ -10,7 +10,7 @@ namespace SpotifyAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [ApiExplorerSettings(GroupName = "SpotifyOpenAPISpecArtists")]
+    //[ApiExplorerSettings(GroupName = "SpotifyOpenAPISpecArtists")]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public class ArtistsController : Controller
     {

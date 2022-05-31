@@ -10,7 +10,7 @@ namespace SpotifyAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [ApiExplorerSettings(GroupName = "SpotifyOpenAPISpecAlbums")]
+    //[ApiExplorerSettings(GroupName = "SpotifyOpenAPISpecAlbums")]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public class AlbumsController : Controller
     {
@@ -78,7 +78,7 @@ namespace SpotifyAPI.Controllers
             }
             if (_albumRepo.AlbumExists(albumDto.Title))
             {
-                ModelState.AddModelError("","Album already Exists!");
+                ModelState.AddModelError("", "Album already Exists!");
                 return StatusCode(404, ModelState);
             }
 
@@ -87,14 +87,14 @@ namespace SpotifyAPI.Controllers
             if (!_albumRepo.CreateAlbum(albumObj))
             {
                 ModelState.AddModelError("", $"Couldnt save the album {albumObj.Title}");
-                return StatusCode(500,ModelState);
+                return StatusCode(500, ModelState);
             }
 
-            return CreatedAtRoute("GetAlbum", new { albumId = albumObj.Id}, albumObj);
+            return CreatedAtRoute("GetAlbum", new { albumId = albumObj.Id }, albumObj);
         }
 
         [HttpPatch("{albumId:int}", Name = "UpdateAlbum")]
-        [ProducesResponseType(204)]       
+        [ProducesResponseType(204)]
         [ProducesResponseType(404)]
         [ProducesResponseType(500)]
         public IActionResult UpdateAlbum(int albumId, [FromBody] AlbumUpdateDto albumDto)
