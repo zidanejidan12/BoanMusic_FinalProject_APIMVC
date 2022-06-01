@@ -1,10 +1,10 @@
-﻿<div class="p-4">
+﻿<div class="p-4" style="border-radius:20px;">
     <div class="row">
         <div class="col-6">
-            <h2 class="text-info">Album List</h2>
+            <h2 class="text-primary">Album List</h2>
         </div>
         <div class="col-6 text-right">
-            <a asp-action="Upsert" class="btn btn-info text-white"><i class="fas fa-plus"></i> &nbsp; Create New Album</a>
+            <a asp-action="Upsert" class="btn btn-primary text-white"><i class="fas fa-plus"></i> &nbsp; Create New Album</a>
         </div>
     </div>
     <br />
@@ -15,13 +15,16 @@
                 <tr>
                     <th>Artist</th>
                     <th>Title</th>
-                    <th>Year</th>
+                    <th>Date</th>
+                    <th></th>
                 </tr>
             </thead>
         </table>
     </div>
 </div>
 
-@section scripts{
-    <script src = "~/js/album.js"></script>
+<br />
+
+@section Scripts{
+    <script src="~/js/album.js"></script>
 }

@@ -12,6 +12,8 @@ namespace SpotifyAPI.Models.DTOs
         public string Description { get; set; }
         public DateTime BirthDate { get; set; }
         public bool IsActive { get; set; }
+        [Required]
+        public string ImageURL { get; set; }
 
     }
 }

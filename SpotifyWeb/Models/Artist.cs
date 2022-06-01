@@ -16,6 +16,7 @@ namespace SpotifyWeb.Models
         public DateTime BirthDate { get; set; }
         public bool IsActive { get; set; }
 
-        public byte[] Picture { get; set; }
+        [Required]
+        public string ImageURL { get; set; }
     }
 }

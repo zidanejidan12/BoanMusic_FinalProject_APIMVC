@@ -44,23 +44,23 @@ namespace SpotifyWeb.Controllers
         {
             if (ModelState.IsValid)
             {
-                var files = HttpContext.Request.Form.Files;
-                if (files.Count>0)
-                {
-                    byte[] p1 = null;
-                    using(var fs1 = files[0].OpenReadStream())
-                    {
-                        using var ms1 = new MemoryStream();
-                        fs1.CopyTo(ms1);
-                        p1=ms1.ToArray();
-                    }
-                    obj.Picture = p1;
-                }
-                else
-                {
-                    var objFromDb = await _artistRepo.GetAsync(SD.ArtistAPIPath, obj.Id);
-                    obj.Picture = objFromDb.Picture;
-                }
+                //var files = HttpContext.Request.Form.Files;
+                //if (files.Count>0)
+                //{
+                //    byte[] p1 = null;
+                //    using(var fs1 = files[0].OpenReadStream())
+                //    {
+                //        using var ms1 = new MemoryStream();
+                //        fs1.CopyTo(ms1);
+                //        p1=ms1.ToArray();
+                //    }
+                //    obj.Picture = p1;
+                //}
+                //else
+                //{
+                //    var objFromDb = await _artistRepo.GetAsync(SD.ArtistAPIPath, obj.Id);
+                //    obj.Picture = objFromDb.Picture;
+                //}
                 if (obj.Id==0)
                 {
                     await _artistRepo.CreateAsync(SD.ArtistAPIPath, obj);

@@ -7,21 +7,22 @@ $(document).ready(function () {
 function loadDataTable() {
     dataTable = $('#tblData').DataTable({
         "ajax": {
-            "url": "/artists/GetAllArtists",
+            "url": "/albums/GetAllAlbums",
             "type": "GET",
             "datatype": "json"
         },
         "columns": [
-            { "data": "fName", "width": "50%" },
-            { "data": "lName", "width": "20%" },
+            { "data": "artist.fName", "width": "25%" },
+            { "data": "title", "width": "20%" },
+            { "data": "releaseDate", "width": "20%" },
             {
                 "data": "id",
                 "render": function (data) {
                     return `<div class="text-center">
-                                <a href="/artists/Upsert/${data}" class='btn btn-success text-white'
+                                <a href="/albums/Upsert/${data}" class='btn btn-success text-white'
                                     style='cursor:pointer;'> <i class='far fa-edit'></i></a>
                                     &nbsp;
-                                <a onclick=Delete("/artists/Delete/${data}") class='btn btn-danger text-white'
+                                <a onclick=Delete("/albums/Delete/${data}") class='btn btn-danger text-white'
                                     style='cursor:pointer;'> <i class='far fa-trash-alt'></i></a>
                                 </div>
                             `;

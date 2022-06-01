@@ -1,0 +1,99 @@
+﻿@model SpotifyWeb.Models.ViewModel.AlbumsVM
+@{
+    var title = "Create Album";
+}
+
+<form method="post" asp-action="Upsert">
+
+    <div class="row px-2 mx-2 backgroundWhite border">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        @if(Model.Album.Id != 0)
+        {
+            <input type="hidden" asp-for="Album.Id"/>
+            title = "Edit Albums";
+        }
+        <div class="col-12 p-3">
+            <h2 class="text-primary">@title</h2>
+        </div>
+        <div class="col-8">
+            <div class="form-group row">
+                <div class="col-4">
+                    Artist
+                </div>
+                <div class="col-8">
+                    @Html.DropDownListFor(m=>m.Album.ArtistId,
+                        Model.ArtistList,"Select an artist", new{@class="form-control"})
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="Album.Title" ></label>
+                </div>
+                <div class="col-8">
+                    <input asp-for="Album.Title" class="form-control" />
+                    <span asp-validation-for="Album.Title" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="Album.Genre" ></label>
+                </div>
+                <div class="col-8">
+                    <select asp-for="Album.Genre" 
+                    asp-items="Html.GetEnumSelectList<Album.GenreType>()" class="form-control"></select>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="Album.Description" ></label>
+                </div>
+                <div class="col-8">
+                    <textarea asp-for="Album.Description" class="form-control"></textarea>
+                    <span asp-validation-for="Album.Description" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="Album.IsExplicit" ></label>
+                </div>
+                <div class="col-8">
+                    <input asp-for="Album.IsExplicit" class="form-control" />
+                    <span asp-validation-for="Album.IsExplicit" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="Album.ReleaseDate" ></label>
+                </div>
+                <div class="col-8">
+                    <input asp-for="Album.ReleaseDate" class="form-control" />
+                    <span asp-validation-for="Album.ReleaseDate" class="text-danger"></span>
+                </div>
+            </div><div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="Album.ImageCoverURL" ></label>
+                </div>
+                <div class="col-8">
+                    <input asp-for="Album.ImageCoverURL" class="form-control" />
+                    <span asp-validation-for="Album.ImageCoverURL" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-4 offset-4">
+                    <button type="submit" class="btn btn-primary form-control">
+                        Save
+                    </button>
+                </div>
+                <div class="col-4">
+                    <a asp-action="Index" class="btn btn-success form-control">Back to List</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-4 text-right" style="width:250px;">
+            @if(Model.Album.Id != 0)
+            {                
+                <img src="@Model.Album.ImageCoverURL" width="100%" />
+            }                
+        </div>
+    </div>
+</form>

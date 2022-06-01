@@ -35,7 +35,8 @@ namespace SpotifyWeb.Controllers
                 {
                     Text = i.FName + i.LName,
                     Value = i.Id.ToString()
-                })
+                }),
+                Album = new Album()
             };
 
             if (id==null)
@@ -50,7 +51,7 @@ namespace SpotifyWeb.Controllers
             return View(objVM);
         }
 
-        public async Task<IActionResult> GetAllAlbum()
+        public async Task<IActionResult> GetAllAlbums()
         {
             return Json(new { data = await _albumRepo.GetAllAsync(SD.AlbumAPIPath) });
         }

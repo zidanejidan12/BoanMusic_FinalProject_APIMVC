@@ -13,7 +13,7 @@ namespace SpotifyAPI.Models
         public int ActiveYears  { get; set; }
         public string Description { get; set; }
         public DateTime BirthDate { get; set; }
-        public byte[] Picture { get; set; }
+        public string ImageURL { get; set; }
         public bool IsActive { get; set; }
 
     }
