@@ -16,6 +16,8 @@ namespace SpotifyAPI.Models
         public string Description { get; set; }
         public DateTime ReleaseDate { get; set; }
         public bool IsExplicit { get; set; }
+        [Required]
+        public string ImageCoverURL { get; set; }
 
         [Required]
         public int ArtistId { get; set; }

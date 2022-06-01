@@ -30,5 +30,8 @@ namespace SpotifyAPI.Models
         [ForeignKey("AlbumId")]
         public Album Album { get; set; }
 
+        [Required]
+        public string ImageSongURL { get; set; }
+
     }
 }

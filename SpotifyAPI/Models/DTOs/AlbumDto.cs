@@ -21,5 +21,8 @@ namespace SpotifyAPI.Models.DTOs
         public int ArtistId { get; set; }
 
         public Artist Artist { get; set; }
+
+        [Required]
+        public string ImageCoverURL { get; set; }
     }
 }

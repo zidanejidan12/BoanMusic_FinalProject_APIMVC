@@ -2,7 +2,7 @@
 
 namespace SpotifyWeb.Repository.IRepository
 {
-    interface IAlbumRepository : IRepository<Album>
+    public interface IAlbumRepository : IRepository<Album>
     {
     }
 }

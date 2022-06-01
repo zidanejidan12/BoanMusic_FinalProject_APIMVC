@@ -7,7 +7,9 @@ namespace SpotifyWeb.Models
     {
         public int Id { get; set; }
         [Required]
+        [Display(Name = "First Name")]
         public string FName { get; set; }
+        [Display(Name = "Last Name")]
         public string LName { get; set; }
         public int ActiveYears { get; set; }
         public string Description { get; set; }
