@@ -1,6 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
-using static SpotifyAPI.Models.Song;
+
 
 namespace SpotifyWeb.Models
 {
@@ -9,6 +9,7 @@ namespace SpotifyWeb.Models
         public int Id { get; set; }
         [Required]
         public string Title { get; set; }
+        public enum GenreType { Rock, Pop, HipHop, Jazz, Electronic, Techno }
         [Required]
         public GenreType Genre { get; set; }
         public string Description { get; set; }

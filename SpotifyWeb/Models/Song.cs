@@ -1,6 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
-using static SpotifyAPI.Models.Song;
+using static SpotifyWeb.Models.Album;
 
 namespace SpotifyWeb.Models
 {

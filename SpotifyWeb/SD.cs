@@ -1,6 +1,6 @@
 ﻿namespace SpotifyWeb
 {
-    public class SD
+    public static class SD
     {
         public static string APIBaseUrl = "https://localhost:44300/";
         public static string ArtistAPIPath = APIBaseUrl + "api/v1/artists";
