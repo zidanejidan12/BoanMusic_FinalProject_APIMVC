@@ -41,6 +41,7 @@
                 <div class="col-8">
                     <select asp-for="Album.Genre" 
                     asp-items="Html.GetEnumSelectList<Album.GenreType>()" class="form-control"></select>
+                         <span asp-validation-for="Album.ArtistId" class="text-danger"></span>
                 </div>
             </div>
             <div class="form-group row">

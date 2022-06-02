@@ -1,8 +1,35 @@
-﻿@{
+﻿@model SpotifyWeb.Models.ViewModel.IndexVM
+@{
     ViewData["Title"] = "Home Page";
 }
 
 <div class="text-center">
-    <h1 class="display-4">WHERE THE HOOD AT</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <h1 class="display-4">Web Music Player</h1>
+</div>
+
+
+
+
+<div class="container-fluid">
+    <div class="row">
+        @foreach (var song in Model.SongList)
+        {
+            <div class="card m-3" style="width: 18rem;">
+                <img class="card-img-top" src="@song.ImageSongURL" alt="Card image cap">
+                <div class="card-body">
+                    <h5 class="card-title">@song.Album.Artist.FName - @song.Title</h5>
+
+                    @{
+                        TimeSpan elapsed = TimeSpan.FromSeconds(@song.RuntimeInSeconds);
+                        string elapsedFormatted = elapsed.ToString(@"m\:ss");
+                    }
+                    <p class="float-left card-text">@song.ReleaseDate.Year</p>
+                    <p class="float-right">@elapsedFormatted</p>
+                    <audio controls>
+                        <source src="@song.SongUrl">
+                    </audio>
+                </div>
+            </div>
+        }
+    </div>
 </div>

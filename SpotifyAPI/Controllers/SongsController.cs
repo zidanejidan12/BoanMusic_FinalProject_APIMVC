@@ -77,25 +77,25 @@ namespace SpotifyAPI.Controllers
         /// </summary>
         /// <param name="albumId">Id of an album</param>
         /// <returns></returns>
-        [HttpGet("{albumId:int}", Name = "GetSongInAlbum")]
-        [ProducesResponseType(200, Type = typeof(SongDto))]
-        [ProducesResponseType(404)]
-        [ProducesDefaultResponseType]
-        public IActionResult GetSongInAlbum(int albumId)
-        {
-            var songList = _songRepo.GetAlbumSongs(albumId);
+        //[HttpGet("{albumId:int}", Name = "GetSongInAlbum")]
+        //[ProducesResponseType(200, Type = typeof(SongDto))]
+        //[ProducesResponseType(404)]
+        //[ProducesDefaultResponseType]
+        //public IActionResult GetSongInAlbum(int albumId)
+        //{
+        //    var songList = _songRepo.GetAlbumSongs(albumId);
 
-            if (songList == null)
-            {
-                return NotFound();
-            }
-            var songDto = new List<SongDto>();
-            foreach (var song in songList)
-            {
-                songDto.Add(_mapper.Map<SongDto>(song));
-            }       
-            return Ok(songDto);
-        }
+        //    if (songList == null)
+        //    {
+        //        return NotFound();
+        //    }
+        //    var songDto = new List<SongDto>();
+        //    foreach (var song in songList)
+        //    {
+        //        songDto.Add(_mapper.Map<SongDto>(song));
+        //    }       
+        //    return Ok(songDto);
+        //}
 
         [HttpPost]
         [ProducesResponseType(201, Type = typeof(SongDto))]

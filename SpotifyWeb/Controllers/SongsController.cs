@@ -11,78 +11,80 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace SpotifyWeb.Controllers
 {
-    public class AlbumsController : Controller
+    public class SongsController : Controller
     {
-        private readonly IArtistRepository _artistRepo;
+        //private readonly IArtistRepository _artistRepo;
         private readonly IAlbumRepository _albumRepo;
+        private readonly ISongRepository _songRepo;
 
-        public AlbumsController(IArtistRepository artistRepo, IAlbumRepository albumRepo)
+        public SongsController(IArtistRepository artistRepo, IAlbumRepository albumRepo, ISongRepository songRepo)
         {
-            _artistRepo = artistRepo;
+            //_artistRepo = artistRepo;
             _albumRepo = albumRepo;
+            _songRepo = songRepo;
         }
         public IActionResult Index()
         {
-            return View(new Album() { });
+            return View(new Song() { });
         }
 
         public async Task<IActionResult> Upsert(int? id)
         {
-            IEnumerable<Artist> artistList = await _artistRepo.GetAllAsync(SD.ArtistAPIPath);
-            AlbumsVM objVM = new AlbumsVM()
+            IEnumerable<Album> albumList = await _albumRepo.GetAllAsync(SD.AlbumAPIPath);
+            SongsVM objVM = new SongsVM()
             {
-                ArtistList = artistList.Select(i => new SelectListItem
+                AlbumList = albumList.Select(i => new SelectListItem
                 {
-                    Text = i.FName + i.LName,
+                    Text = i.Title,
                     Value = i.Id.ToString()
                 }),
-                Album = new Album()
+                Song = new Song()
             };
 
             if (id==null)
             {
                     return View(objVM);
             }
-            objVM.Album = await _albumRepo.GetAsync(SD.AlbumAPIPath, id.GetValueOrDefault());
-            if (objVM.Album == null)
+            objVM.Song = await _songRepo.GetAsync(SD.SongAPIPath, id.GetValueOrDefault());
+            if (objVM.Song == null)
             {
                 return NotFound();
             }
             return View(objVM);
         }
 
-        public async Task<IActionResult> GetAllAlbums()
+        public async Task<IActionResult> GetAllSongs()
         {
-            return Json(new { data = await _albumRepo.GetAllAsync(SD.AlbumAPIPath) });
+            return Json(new { data = await _songRepo.GetAllAsync(SD.SongAPIPath) });
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Upsert(AlbumsVM obj)
+        public async Task<IActionResult> Upsert(SongsVM obj)
         {
             if (ModelState.IsValid)
             {               
-                if (obj.Album.Id==0)
+                if (obj.Song.Id==0)
                 {
-                    await _albumRepo.CreateAsync(SD.AlbumAPIPath, obj.Album);
+                    await _songRepo.CreateAsync(SD.SongAPIPath, obj.Song);
                 }
                 else
                 {
-                    await _albumRepo.UpdateAsync(SD.AlbumAPIPath + obj.Album.Id, obj.Album);
+                    await _songRepo.UpdateAsync(SD.SongAPIPath + obj.Song.Id, obj.Song);
                 }
                 return RedirectToAction(nameof(Index));
                 
             }
             else
             {
-                IEnumerable<Artist> artistList = await _artistRepo.GetAllAsync(SD.ArtistAPIPath);
-                AlbumsVM objVM = new AlbumsVM()
+                IEnumerable<Album> albumList = await _albumRepo.GetAllAsync(SD.AlbumAPIPath);
+                SongsVM objVM = new SongsVM()
                 {
-                    ArtistList = artistList.Select(i => new SelectListItem
+                    AlbumList = albumList.Select(i => new SelectListItem
                     {
-                        Text = i.FName + i.LName,
+                        Text = i.Title,
                         Value = i.Id.ToString()
                     }),
-                    Album = obj.Album
+                    Song = obj.Song
                 };
                 return View(objVM);
             }
@@ -90,7 +92,7 @@ namespace SpotifyWeb.Controllers
         [HttpDelete]
         public async Task<IActionResult> Delete(int id)
         {
-            var status = await _albumRepo.DeleteAsync(SD.AlbumAPIPath, id);
+            var status = await _songRepo.DeleteAsync(SD.SongAPIPath, id);
             if (status)
             {
                 return Json(new { success = true, message="Delete successful"});
