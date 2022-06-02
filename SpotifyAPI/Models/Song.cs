@@ -23,7 +23,9 @@ namespace SpotifyAPI.Models
         [StringLength(2048)]
         public string SongUrl { get; set; }
 
-        
+        public bool IsHidden { get; set; } = false;
+
+
 
         [Required]
         public int AlbumId { get; set; }

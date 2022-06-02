@@ -51,7 +51,9 @@
     <div class="row">
         @foreach (var song in Model.SongList)
         {
-            <div class="card m-3" style="width: 18rem;">
+            if (!@song.IsHidden)
+            {
+                <div class="card m-3" style="width: 18rem;">
                 <img class="card-img-top" src="@song.ImageSongURL" alt="Card image cap">
                 <div class="card-body">
                     <h5 class="card-title">@song.Album.Artist.FName - @song.Title</h5>
@@ -67,6 +69,7 @@
                     </audio>
                 </div>
             </div>
+            }            
         }
     </div>
 </div>

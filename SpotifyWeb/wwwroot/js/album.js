@@ -20,10 +20,12 @@ function loadDataTable() {
                 "render": function (data) {
                     return `<div class="text-center">
                                 <a href="/albums/Upsert/${data}" class='btn btn-success text-white'
-                                    style='cursor:pointer;'> <i class='far fa-edit'></i></a>
+                                    style='cursor:pointer;'> Edit </a>
                                     &nbsp;
                                 <a onclick=Delete("/albums/Delete/${data}") class='btn btn-danger text-white'
-                                    style='cursor:pointer;'> <i class='far fa-trash-alt'></i></a>
+                                    style='cursor:pointer;'> Delete </i></a>
+                                <a onclick=Hide("/albums/Hide/${data}") class='btn btn-warning text-white'
+                                    style='cursor:pointer;'> Hide </i></a>
                                 </div>
                             `;
                 }, "width": "30%"

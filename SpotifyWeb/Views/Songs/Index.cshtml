@@ -3,9 +3,7 @@
         <div class="col-6">
             <h2 class="text-primary">Song List</h2>
         </div>
-        <div class="col-6 text-right">
-            <a asp-action="Upsert" class="btn btn-primary text-white"><i class="fas fa-plus"></i> &nbsp; Create New Song</a>
-        </div>
+
     </div>
     <br />
     <br />
@@ -22,16 +20,20 @@
             </thead>
         </table>
     </div>
+    <div class=" text-left  mt-2">
+        <a asp-action="Upsert" class="btn btn-primary text-white"><i class="fa-solid fa-music"></i> &nbsp; Create New Song</a>
+    </div>
 </div>
+
 
 <br />
 
 @section Scripts{
-    <script src="~/js/song.js"></script>
+<script src="~/js/song.js"></script>
 }
 
- @*<th>Title</th>
-                    <th>Artist</th>
-                    <th>Genre</th>
-                    <th>RuntimeInSeconds</th>
-                    <th>Album</th>*@
+@*<th>Title</th>
+    <th>Artist</th>
+    <th>Genre</th>
+    <th>RuntimeInSeconds</th>
+    <th>Album</th>*@

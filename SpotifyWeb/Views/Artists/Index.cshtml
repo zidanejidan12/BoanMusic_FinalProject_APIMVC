@@ -3,9 +3,6 @@
         <div class="col-6">
             <h2 class="text-info">Artists List</h2>
         </div>
-        <div class="col-6 text-right">
-            <a asp-action="Upsert" class="btn btn-info text-white"><i class="fas fa-plus"></i> &nbsp; Create New Artist</a>
-        </div>
     </div>
     <br />
     <br />
@@ -21,8 +18,11 @@
             </thead>
         </table>
     </div>
+    <div class="text-left mt-2">
+        <a asp-action="Upsert" class="btn btn-info text-white"><i class="fa-solid fa-music"></i> &nbsp; Create New Artist</a>
+    </div>
 </div>
 
 @section scripts{
-    <script src = "~/js/artist.js"></script>
+<script src="~/js/artist.js"></script>
 }

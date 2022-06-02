@@ -1,0 +1,23 @@
+﻿@model SpotifyWeb.Models.ViewModel.IndexVM
+@{
+    ViewData["Title"] = "All artists";
+}
+
+<div class="row">)
+    @foreach (var artist in Model.ArtistList)
+    {
+        <div class="col-md-4">
+            <div class="card">
+                <img class="card-img-top" src="@artist.ImageURL">
+                <div class="card-body text-center">
+                    <h5 class="card-title text-center">@artist.FName (@artist.LName)</h5>
+                    <a asp-controller="Artist" asp-action="All" asp-route-id="@artist.Id" class="btn btn-primary">View</a>
+
+                        <a asp-controller="Artist" asp-action="Upsert" asp-route-id="@artist.Id" class="btn btn-warning">Edit</a>
+                        <a asp-area="" asp-controller="Artist" asp-action="Delete" asp-route-id="@artist.Id" class="btn btn-danger">Delete</a>
+
+                </div>
+            </div>
+        </div>
+    }
+</div>

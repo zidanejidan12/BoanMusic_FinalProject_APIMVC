@@ -88,5 +88,15 @@ namespace SpotifyWeb.Controllers
             return Json(new { success = false, message = "Delete Not successful" });
 
         }
+
+        //public async Task<IActionResult> Hide(int id)
+        //{
+        //    var artist = await _artistRepo.GetAsync(SD.ArtistAPIPath, id);
+
+        //    if (artist.)
+        //    {
+
+        //    }
+        //}
     }
 }
