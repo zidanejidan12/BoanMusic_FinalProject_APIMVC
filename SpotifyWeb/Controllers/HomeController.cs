@@ -35,7 +35,10 @@ namespace SpotifyWeb.Controllers
             //listOfSongInfo.SongList.Where(x=> x.Title.Contains(searchTerm)).ToList();
             if (searchTerm != null)
             {
-                listOfSongInfo.SongList = listOfSongInfo.SongList.Where(x => x.Title.ToLower().Contains(searchTerm.ToLower()));
+                listOfSongInfo.SongList = listOfSongInfo.SongList.Where(x =>
+                x.Title.ToLower().Contains(searchTerm.ToLower()) ||
+                x.Album.Title.ToLower().Contains(searchTerm.ToLower()) ||
+                x.Album.Artist.FName.ToLower().Contains(searchTerm.ToLower()));
             }
 
             listOfSongInfo.SongList = sorting switch
@@ -43,7 +46,7 @@ namespace SpotifyWeb.Controllers
 
                 GenreSorting.Title => listOfSongInfo.SongList.OrderBy(m => m.Title),
                 GenreSorting.Year => listOfSongInfo.SongList.OrderByDescending(m => m.ReleaseDate),
-                GenreSorting.Runtime => listOfSongInfo.SongList.OrderBy(m => m.RuntimeInSeconds),
+                GenreSorting.Runtime => listOfSongInfo.SongList.OrderBy(m => m.RuntimeInSeconds)
             };
 
             return View(listOfSongInfo);
