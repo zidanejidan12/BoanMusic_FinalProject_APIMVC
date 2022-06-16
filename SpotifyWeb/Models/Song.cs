@@ -32,5 +32,8 @@ namespace SpotifyWeb.Models
         public string ImageSongURL { get; set; }
 
         public bool IsHidden { get; set; } = false;
+
+
+        public string SongMP3 { get; set; }
     }
 }

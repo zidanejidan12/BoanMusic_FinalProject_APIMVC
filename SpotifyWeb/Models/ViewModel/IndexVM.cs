@@ -18,5 +18,6 @@ namespace SpotifyWeb.Models.ViewModel
         public enum GenreSorting { Title,Year,Runtime }
         [Display(Name = "Sort By")]
         public GenreSorting Sorting { get; set; }
+
     }
 }

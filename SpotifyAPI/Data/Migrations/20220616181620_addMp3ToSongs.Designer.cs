@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SpotifyAPI.Data;
 
 namespace SpotifyAPI.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220616181620_addMp3ToSongs")]
+    partial class addMp3ToSongs
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -119,8 +121,9 @@ namespace SpotifyAPI.Migrations
                     b.Property<int>("RuntimeInSeconds")
                         .HasColumnType("int");
 
-                    b.Property<string>("SongMP3")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<byte[]>("SongMP3")
+                        .IsRequired()
+                        .HasColumnType("varbinary(max)");
 
                     b.Property<string>("SongUrl")
                         .IsRequired()

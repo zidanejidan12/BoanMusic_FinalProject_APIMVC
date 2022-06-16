@@ -34,6 +34,7 @@ namespace SpotifyAPI.Models
 
         [Required]
         public string ImageSongURL { get; set; }
+        public string SongMP3 { get; set; }
 
     }
 }

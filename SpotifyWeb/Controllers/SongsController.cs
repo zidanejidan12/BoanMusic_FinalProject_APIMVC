@@ -62,7 +62,40 @@ namespace SpotifyWeb.Controllers
         public async Task<IActionResult> Upsert(SongsVM obj)
         {
             if (ModelState.IsValid)
-            {               
+            {
+                var file = HttpContext.Request.Form.Files;
+                if (file.Count > 0)
+                {
+                    obj.Song.SongMP3 = file[0].FileName;
+
+
+
+                    //obj. = Path.Combine(
+                    //    Microsoft.AspNetCore.Server.MapPath("~/App_Data/uploads"), fileName);
+                    //file.SaveAs(assignment.FileLocation);
+                    //byte[] p1 = null;
+                    //var fs2 = file[0].FileName;
+                    //using (var fs1 = file[0].OpenReadStream())
+                    //{
+                    //    using (var ms1 = new MemoryStream())
+                    //    {
+                    //        fs1.CopyTo(ms1);
+                    //        p1 = ms1.ToArray();
+                    //    }
+
+                    //}
+                    //obj.Song.SongMP3 = p1;
+                }
+                else
+                {
+                    var objFromDb = await _songRepo.GetAsync(SD.SongAPIPath, obj.Song.Id);
+                    obj.Song.SongMP3 = objFromDb.SongMP3;
+                }
+
+
+
+
+
                 if (obj.Song.Id==0)
                 {
                     await _songRepo.CreateAsync(SD.SongAPIPath, obj.Song);

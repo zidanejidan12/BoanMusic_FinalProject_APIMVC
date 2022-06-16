@@ -3,73 +3,115 @@
     ViewData["Title"] = "Home Page";
 }
 
+<head>
+        <link rel="stylesheet" href="/css/webplayer.css" />
+</head>
 <div class="text-center">
     <h1 class="display-4">Web Music Player</h1>
 </div>
 
-<form method="get" id="myform">
-    <div class="row">
-        @*<div class="form-group  col-md-4">
-            <div class="form-group">
-                <label asp-for="Genre"></label>
-                <select asp-for="Genre" class="form-control">
-                    <option value="">All</option>
-                    @foreach (var song in Model.SongList)
-                    {
-                        <option value="@song.Genre">@song.Genre</option>
-                    }
-                </select>
-            </div>
-        </div>*@
-        <div class="form-group  col-md-4">
-            <label asp-for="SearchTerm"></label>
-            <input asp-for="SearchTerm" class="form-control" placeholder="Nirvana, Despacito ...">
-        </div>
+<body class="webPlayerBody">
+    <h1>Music Player</h1>
 
-        <div class="form-group  col-md-4">
-            <div class="form-group">
-                <label asp-for="Sorting"></label>
-                <select asp-for="Sorting" class="form-control">
-                    <option value="0" selected>Title</option>
-                    <option value="1">Year</option>
-                    <option value="2">Runtime</option>
-                </select>
+    <div class="music-container">
+        <div class="music-info">
+            <h4 id="title">Ukelele</h4>
+            <div class="progress-container">
+                <div class="progress"> </div>
             </div>
         </div>
-        <div class="form-group  col-md-4">
-            <div class="form-group">
-                <button type="submit" class="btn btn-info m-4">Submit</button>
-            </div>
+
+        <audio src="music/Nirvana - Lithium.mp3" id="audio"></audio>
+        <div class="img-container">
+            <img src="image/music_background_2_203133.jpg" alt="music-cover" id="cover" />
         </div>
-    </div>    
-</form>
-
-
-
-
-<div class="container-fluid">
-    <div class="row">
-        @foreach (var song in Model.SongList)
-        {
-            if (!@song.IsHidden)
-            {
-                <div class="card m-3" style="width: 18rem;">
-                <img class="card-img-top" src="@song.ImageSongURL" alt="Card image cap">
-                <div class="card-body">
-                    <h5 class="card-title">@song.Album.Artist.FName - @song.Title</h5>
-
-                    @{
-                        TimeSpan elapsed = TimeSpan.FromSeconds(@song.RuntimeInSeconds);
-                        string elapsedFormatted = elapsed.ToString(@"m\:ss");
-                    }
-                    <p class="float-left card-text">@song.ReleaseDate.Year</p>
-                    <p class="float-right">@elapsedFormatted</p>
-                    <audio controls>
-                        <source src="@song.SongUrl">
-                    </audio>
-                </div>
-            </div>
-            }            
-        }
+        <div class="navigation">
+            <button id="prev" class="action-btn">
+                <i class ="fas fa-backward"></i>
+            </button>
+            <button id="play" class="action-btn action-btn-big">
+                <i class ="fas fa-play"></i>
+            </button>
+            <button id="next" class="action-btn">
+                <i class ="fas fa-forward"></i>
+            </button>
+        </div>
     </div>
-</div>
+
+
+
+
+
+
+    <script src="~/js/webplayer.js"></script>
+</body>
+
+
+@*
+    <form method="get" id="myform">
+    <div class="row">
+    <div class="form-group  col-md-4">
+    <div class="form-group">
+    <label asp-for="Genre"></label>
+    <select asp-for="Genre" class="form-control">
+    <option value="">All</option>
+    @foreach (var song in Model.SongList)
+    {
+    <option value="@song.Genre">@song.Genre</option>
+    }
+    </select>
+    </div>
+    </div>
+    <div class="form-group  col-md-4">
+    <label asp-for="SearchTerm"></label>
+    <input asp-for="SearchTerm" class="form-control" placeholder="Nirvana, Despacito ...">
+    </div>
+
+    <div class="form-group  col-md-4">
+    <div class="form-group">
+    <label asp-for="Sorting"></label>
+    <select asp-for="Sorting" class="form-control">
+    <option value="0" selected>Title</option>
+    <option value="1">Year</option>
+    <option value="2">Runtime</option>
+    </select>
+    </div>
+    </div>
+    <div class="form-group  col-md-4">
+    <div class="form-group">
+    <button type="submit" class="btn btn-info m-4">Submit</button>
+    </div>
+    </div>
+    </div>
+    </form>
+
+
+
+
+    <div class="container-fluid">
+    <div class="row">
+    @foreach (var song in Model.SongList)
+    {
+    if (!@song.IsHidden)
+    {
+    <div class="card m-3" style="width: 18rem;">
+    <img class="card-img-top" src="@song.ImageSongURL" alt="Card image cap">
+    <div class="card-body">
+    <h5 class="card-title">@song.Album.Artist.FName - @song.Title</h5>
+
+    @{
+    TimeSpan elapsed = TimeSpan.FromSeconds(@song.RuntimeInSeconds);
+    string elapsedFormatted = elapsed.ToString(@"m\:ss");
+    }
+    <p class="float-left card-text">@song.ReleaseDate.Year</p>
+    <p class="float-right">@elapsedFormatted</p>
+    <audio controls>
+    <source src="@song.SongUrl">
+    </audio>
+    </div>
+    </div>
+    }
+    }
+    </div>
+    </div>
+*@

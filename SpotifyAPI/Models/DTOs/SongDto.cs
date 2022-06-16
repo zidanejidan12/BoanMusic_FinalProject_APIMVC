@@ -35,5 +35,7 @@ namespace SpotifyAPI.Models.DTOs
         public string ImageSongURL { get; set; }
 
         public bool IsHidden { get; set; }
+
+        public string SongMP3 { get; set; }
     }
 }
