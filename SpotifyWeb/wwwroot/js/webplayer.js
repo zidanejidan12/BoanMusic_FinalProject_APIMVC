@@ -2,12 +2,14 @@
 const playBtn = document.querySelector('#play')
 const prevBtn = document.querySelector('#prev')
 const nextBtn = document.querySelector('#next')
+const muteBtn = document.querySelector('#mute')
 const audio = document.querySelector('#audio')
 const progress = document.querySelector('.progress')
 const progressContainer = document.querySelector('.progress-container')
 const title = document.querySelector('#title')
 const cover = document.querySelector('#cover')
 const slider = document.querySelector('input');
+const progressBar = document.querySelector('progress');
 
 //Song Titles
 //const songs = getItems();
@@ -46,6 +48,27 @@ function pauseSong() {
     audio.pause()
 }
 
+function muteSong() {
+    musicContainer.classList.add('muted')
+    muteBtn.querySelector('i.fas').classList.remove('fa-volume-high')
+    muteBtn.querySelector('i.fas').classList.add('fa-volume-xmark')
+    audio.volume = 0;
+    slider.value = 0;
+    progressBar.value = 0;
+}
+
+function unmuteSong() {
+    musicContainer.classList.remove('muted')
+    muteBtn.querySelector('i.fas').classList.add('fa-volume-high')
+    muteBtn.querySelector('i.fas').classList.remove('fa-volume-xmark')
+
+    audio.volume = 0.5;
+    slider.value = 50;
+    progressBar.value = 50;
+}
+
+
+
 async function prevSong() {
     songIndex--
     songs = await getSongs();
@@ -83,7 +106,6 @@ function setProgress(e) {
 }
 
 slider.oninput = function(){
-    progressBar = document.querySelector('progress');
     progressBar.value = slider.value;
     sliderValue = document.querySelector('.sliderValue');
     sliderValue.innerHTML = slider.value;
@@ -134,6 +156,17 @@ playBtn.addEventListener('click', () => {
         pauseSong()
     } else {
         playSong()
+    }
+})
+
+muteBtn.addEventListener('click', () => {
+    const isMuted = musicContainer.classList.contains('muted')
+    const volume = audio.volume;
+
+    if (isMuted) {
+        unmuteSong()
+    } else {
+        muteSong()
     }
 })
 
