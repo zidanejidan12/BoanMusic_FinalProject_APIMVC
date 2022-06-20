@@ -98,7 +98,8 @@ namespace SpotifyWeb.Controllers
 
                 if (obj.Song.Id==0)
                 {
-                    await _songRepo.CreateAsync(SD.SongAPIPath, obj.Song);
+                    
+                    _songRepo.CreateAsync(SD.SongAPIPath, obj.Song);
                 }
                 else
                 {

@@ -67,6 +67,12 @@ namespace SpotifyAPI
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseCors(x => x
+               .AllowAnyMethod()
+               .AllowAnyHeader()
+               .SetIsOriginAllowed(origin => true) // allow any origin
+               .AllowCredentials());
+
             app.UseHttpsRedirection();
             app.UseSwagger();
             app.UseSwaggerUI(options =>
