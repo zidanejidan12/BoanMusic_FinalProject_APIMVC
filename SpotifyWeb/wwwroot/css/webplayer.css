@@ -212,4 +212,64 @@
     text-align:center;
 }
 
+.sidebar-div{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family: 'Segoe UI';
+}
+.sidebar{
+    position:fixed;
+    background:#121212;
+    width:200px;
+    height:100%;
+    /*top:0;*/
+    left:0;
+    z-index:1;
+}
+
+.sidebar h2{
+    text-align:center;
+    font-size:20px;
+    text-transform:uppercase;
+    color:#ffffff;
+    background:#121212;
+    padding:20px;
+    font-weight:bold;
+}
+
+.nomargin{
+    margin:0;
+    padding:0;
+}
+
+.sidebar ul li{
+    margin:25px 0;
+
+}
+.sidebar ul li a{
+    color:#D0D0D0;
+    padding: 0 20px;
+}
+.sidebar ul li a:hover{
+    color: #fff;
+    margin-left:15px;
+    transition: 0.3s;
+}
+
+.main{
+    margin-left:200px;
+    padding: 5px;
+}
+
+.main h2{
+    margin-top:30px;
+}
+
+header{
+    display:none;
+}
+
+
+
 
