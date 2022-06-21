@@ -52,9 +52,11 @@ function muteSong() {
     musicContainer.classList.add('muted')
     muteBtn.querySelector('i.fas').classList.remove('fa-volume-high')
     muteBtn.querySelector('i.fas').classList.add('fa-volume-xmark')
-    audio.volume = 0;
-    slider.value = 0;
-    progressBar.value = 0;
+    audio.muted = true;
+    slider.value = audio.volume;
+    progressBar.value = audio.volume;
+    //slider.value = 0;
+    //progressBar.value = 0;
 }
 
 function unmuteSong() {
@@ -62,9 +64,11 @@ function unmuteSong() {
     muteBtn.querySelector('i.fas').classList.add('fa-volume-high')
     muteBtn.querySelector('i.fas').classList.remove('fa-volume-xmark')
 
-    audio.volume = 0.5;
-    slider.value = 50;
-    progressBar.value = 50;
+    audio.muted = false;
+    slider.value = audio.volume * 100;
+    progressBar.value = audio.volume * 100;
+    //slider.value = 50;
+    //progressBar.value = 50;
 }
 
 
