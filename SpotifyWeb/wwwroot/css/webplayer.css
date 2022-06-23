@@ -28,8 +28,9 @@
     /*margin: 100px 0;*/
     z-index: 10;
     justify-content: center;
-    flex-direction:row;
-    left:0;
+    flex-direction: row;
+    left: 0;
+    border-top: 1px solid #fff;
 }
 
 .img-container{
@@ -123,7 +124,7 @@
     align-items: center;
     flex-direction: column;
 }
-.music-info h4{
+.music-info h4{sliderValue = document.querySelector('.sliderValue');
     margin:0;
     color:#fff;
 }
@@ -131,7 +132,7 @@
 .music-container.play .music-info {
     opacity: 1;
     transform: translateY(-100%);
-    padding: 10px 60px 38px 150px;
+    padding: 5px 60px 5px 190px;
 }
 
 .progress-container{
@@ -205,12 +206,14 @@
     background-color: #e91e63;
 }
 
-.sliderValue{
-    font-family:"Google Sans Regular";
-    width:28px;
-    height:20px;
-    margin-left:10px;
-    text-align:center;
+.sliderValue {
+    font-family: "Google Sans Regular";
+    width: 28px;
+    /*height:20px;*/
+    margin-left: 10px;
+    text-align: center;
+    color: #ffffff;
+    font-weight: bold;
 }
 
 .sidebar-div{
@@ -221,7 +224,7 @@
 }
 .sidebar{
     position:fixed;
-    background:#121212;
+    background:#000000;
     width:200px;
     height:100%;
     /*top:0;*/
@@ -234,7 +237,7 @@
     font-size:20px;
     text-transform:uppercase;
     color:#ffffff;
-    background:#121212;
+    background:#000000;
     padding:20px;
     font-weight:bold;
 }
@@ -271,6 +274,18 @@ header{
     display:none;
 }
 
+.songSection {
+    display: flex;
+    justify-content: space-evenly;
+    flex-direction: row;
+    margin-bottom: 50px;
+}
+
+.songContainer h2{
+    margin-left:10%;
+    margin-bottom:50px;
+    color:#ffffff;
+}
 
 
 

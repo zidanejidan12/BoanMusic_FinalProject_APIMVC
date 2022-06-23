@@ -39,45 +39,106 @@
                 </a>
             </li>
         </ul>
-    </div>
-    <div class="main">
-        <section>
+    </div>    
+</div>
+
+<div class="main">
+        @*<section>
             <h2>Artists</h2>
             <div class="card" style="width: 13rem;">
-                <img class="card-img-top" src="https://upload.wikimedia.org/wikipedia/en/0/06/ComeAsYouAre.jpg" alt="Card image cap">
-                <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                    @*<a href="#" class="btn btn-primary">Go somewhere</a>*@
-                </div>
+            <img class="card-img-top" src="https://upload.wikimedia.org/wikipedia/en/0/06/ComeAsYouAre.jpg" alt="Card image cap">
+            <div class="card-body">
+            <h5 class="card-title">Card title</h5>
+            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+            @*<a href="#" class="btn btn-primary">Go somewhere</a>
             </div>
-        </section>
-        <section>
+            </div>
+            </section>
+            <section>
             <h2>Albums</h2>
             <div class="card" style="width: 13rem;">
-                <img class="card-img-top" src="https://upload.wikimedia.org/wikipedia/en/0/06/ComeAsYouAre.jpg" alt="Card image cap">
-                <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                    @*<a href="#" class="btn btn-primary">Go somewhere</a>*@
-                </div>
+            <img class="card-img-top" src="https://upload.wikimedia.org/wikipedia/en/0/06/ComeAsYouAre.jpg" alt="Card image cap">
+            <div class="card-body">
+            <h5 class="card-title">Card title</h5>
+            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+            @*<a href="#" class="btn btn-primary">Go somewhere</a>
             </div>
-        </section>
-        <section>
+            </div>
+            </section>*@
+        <div class ="songContainer">          
             <h2>Songs</h2>
-            <div class="card" style="width: 13rem;">
-                <img class="card-img-top" src="https://upload.wikimedia.org/wikipedia/en/0/06/ComeAsYouAre.jpg" alt="Card image cap">
-                <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                    @*<a href="#" class="btn btn-primary">Go somewhere</a>*@
+            <section class="songSection">
+                <div class="pointer" id="song1" onclick="loadMainMenuSong(this.id)">
+                    
+                    <div class="card" style="width: 13rem;">
+                        <img id="imgCardInfo1" class="card-img-top" src="https://upload.wikimedia.org/wikipedia/en/0/06/ComeAsYouAre.jpg" alt="Card image cap">
+                        <div class="card-body">
+                            <h5 id="titleCardInfo1" class="card-title">Card title</h5>
+                            <p id="artistCardInfo1" class="card-text">Nirvana</p>
+                            @*<a href="#" class="btn btn-primary">Go somewhere</a>*@
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </section>
-        <h2>FIXEDDDDDDDDD SIDEBAR</h2>
-        <p>lorem ipsum.................</p>
+                <div class="pointer" id="song2" onclick="loadMainMenuSong(this.id)">
+
+                    <div class="card" style="width: 13rem;">
+                        <img id="imgCardInfo2" class="card-img-top" src="https://upload.wikimedia.org/wikipedia/en/0/06/ComeAsYouAre.jpg" alt="Card image cap">
+                        <div class="card-body">
+                            <h5 id="titleCardInfo2" class="card-title">Card title</h5>
+                            <p id="artistCardInfo2" class="card-text">Nirvana</p>
+                            @*<a href="#" class="btn btn-primary">Go somewhere</a>*@
+                        </div>
+                    </div>
+                </div>
+                <div class="pointer" id="song3" onclick="loadMainMenuSong(this.id)">
+
+                    <div class="card" style="width: 13rem;">
+                        <img id="imgCardInfo3" class="card-img-top" src="https://upload.wikimedia.org/wikipedia/en/0/06/ComeAsYouAre.jpg" alt="Card image cap">
+                        <div class="card-body">
+                            <h5 id="titleCardInfo3" class="card-title">Card title</h5>
+                            <p id="artistCardInfo3" class="card-text">Nirvana</p>
+                            @*<a href="#" class="btn btn-primary">Go somewhere</a>*@
+                        </div>
+                    </div>
+                </div>
+            </section>   
+            <section class="songSection">
+                <div class="pointer" id="song4" onclick="loadMainMenuSong(this.id)">
+
+                    <div class="card" style="width: 13rem;">
+                        <img  id="imgCardInfo4" class="card-img-top" src="https://upload.wikimedia.org/wikipedia/en/0/06/ComeAsYouAre.jpg" alt="Card image cap">
+                        <div class="card-body">
+                            <h5 id="titleCardInfo4" class="card-title">Card title</h5>
+                            <p id="artistCardInfo4" class="card-text">Nirvana</p>
+                            @*<a href="#" class="btn btn-primary">Go somewhere</a>*@
+                        </div>
+                    </div>
+                </div>
+                <div class="pointer" id="song5" onclick="loadMainMenuSong(this.id)">
+
+                    <div class="card" style="width: 13rem;">
+                        <img id="imgCardInfo5" class="card-img-top" src="https://upload.wikimedia.org/wikipedia/en/0/06/ComeAsYouAre.jpg" alt="Card image cap">
+                        <div class="card-body">
+                            <h5 id="titleCardInfo5" class="card-title">Card title</h5>
+                            <p id="artistCardInfo5" class="card-text">Nirvana</p>
+                            @*<a href="#" class="btn btn-primary">Go somewhere</a>*@
+                        </div>
+                    </div>
+                </div>
+                <div class="pointer" id="song6" onclick="loadMainMenuSong(this.id)">
+
+                    <div class="card" style="width: 13rem;">
+                        <img id="imgCardInfo6" class="card-img-top" src="https://upload.wikimedia.org/wikipedia/en/0/06/ComeAsYouAre.jpg" alt="Card image cap">
+                        <div class="card-body">
+                            <h5 id="titleCardInfo6" class="card-title">Card title</h5>
+                            <p id="artistCardInfo6" class="card-text">Nirvana</p>
+                            @*<a href="#" class="btn btn-primary">Go somewhere</a>*@
+                        </div>
+                    </div>
+                </div>
+            </section>   
+        </div>
     </div>
-</div>
 
 
 <footer class="footer">

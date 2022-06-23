@@ -4,12 +4,40 @@ const prevBtn = document.querySelector('#prev')
 const nextBtn = document.querySelector('#next')
 const muteBtn = document.querySelector('#mute')
 const audio = document.querySelector('#audio')
+const pointer = document.querySelector('.pointer');
 const progress = document.querySelector('.progress')
 const progressContainer = document.querySelector('.progress-container')
 const title = document.querySelector('#title')
 const cover = document.querySelector('#cover')
 const slider = document.querySelector('input');
 const progressBar = document.querySelector('progress');
+const imgCardInfo1 = document.querySelector('#imgCardInfo1');
+const titleCardInfo1 = document.querySelector('#titleCardInfo1');
+const artistCardInfo1 = document.querySelector('#artistCardInfo1');
+const imgCardInfo2 = document.querySelector('#imgCardInfo2');
+const titleCardInfo2 = document.querySelector('#titleCardInfo2');
+const artistCardInfo2 = document.querySelector('#artistCardInfo2');
+const imgCardInfo3 = document.querySelector('#imgCardInfo3');
+const titleCardInfo3 = document.querySelector('#titleCardInfo3');
+const artistCardInfo3 = document.querySelector('#artistCardInfo3');
+const imgCardInfo4 = document.querySelector('#imgCardInfo4');
+const titleCardInfo4 = document.querySelector('#titleCardInfo4');
+const artistCardInfo4 = document.querySelector('#artistCardInfo4');
+const imgCardInfo5 = document.querySelector('#imgCardInfo5');
+const titleCardInfo5 = document.querySelector('#titleCardInfo5');
+const artistCardInfo5 = document.querySelector('#artistCardInfo5');
+const imgCardInfo6 = document.querySelector('#imgCardInfo6');
+const titleCardInfo6 = document.querySelector('#titleCardInfo6');
+const artistCardInfo6 = document.querySelector('#artistCardInfo6');
+const songContainer = document.querySelectorAll('songContainer');
+const songId1 = document.querySelector('#song1');
+const songId2 = document.querySelector('#song2');
+const songId3 = document.querySelector('#song3');
+const songId4 = document.querySelector('#song4');
+const songId5 = document.querySelector('#song5');
+const songId6 = document.querySelector('#song6');
+const sliderValue = document.querySelector('.sliderValue');
+
 
 //Song Titles
 //const songs = getItems();
@@ -22,7 +50,7 @@ let songIndex = 0
 //Initially load song info DOM
 let songs;
 loadSong();
-
+loadMainSongs();
 
 //Update song details
 async function loadSong() {
@@ -31,6 +59,37 @@ async function loadSong() {
     title.innerText = song['title']
     audio.src = `../music/${song['songMP3']}`
     cover.src = song['imageSongURL']
+}
+
+async function loadMainMenuSong(id) {
+    songs = await getSongs();
+    song = songs[id];
+    title.innerText = song['title']
+    audio.src = `../music/${song['songMP3']}`
+    cover.src = song['imageSongURL']
+    playSong();
+}
+
+async function loadMainSongs() {
+    let imgCardInfo = [imgCardInfo1, imgCardInfo2, imgCardInfo3, imgCardInfo4, imgCardInfo5, imgCardInfo6]
+    let titleCardInfo = [titleCardInfo1, titleCardInfo2, titleCardInfo3, titleCardInfo4, titleCardInfo5, titleCardInfo6]
+    let artistCardInfo = [artistCardInfo1, artistCardInfo2, artistCardInfo3, artistCardInfo4, artistCardInfo5, artistCardInfo6]
+    let songIdArr = [songId1, songId2, songId3, songId4, songId5, songId6]
+    songs = await getSongs();
+    let songIds = [];
+    let songId;
+    for (let i = 0; i < 6; i++) {
+        songId = Math.floor(Math.random() * (songs.length - 1));
+        while (songIds.includes(songId)) {
+            songId++;
+        }        
+        song = songs[songId];
+        imgCardInfo[i].src = song['imageSongURL']
+        titleCardInfo[i].innerText = song['title']
+        artistCardInfo[i].innerText = song['album']['artist']['fName']
+        songIdArr[i].id = songId;
+        songIds.push(songId);
+    }
 }
 
 function playSong() {
@@ -55,6 +114,7 @@ function muteSong() {
     audio.muted = true;
     slider.value = audio.volume;
     progressBar.value = audio.volume;
+    sliderValue.innerText = 0;
     //slider.value = 0;
     //progressBar.value = 0;
 }
@@ -67,6 +127,7 @@ function unmuteSong() {
     audio.muted = false;
     slider.value = audio.volume * 100;
     progressBar.value = audio.volume * 100;
+    sliderValue.innerText = audio.volume * 100;
     //slider.value = 50;
     //progressBar.value = 50;
 }
@@ -79,10 +140,10 @@ async function prevSong() {
     if (songIndex < 0) {
         songIndex = songs.length - 1;
     }
-    await loadSong();    
+    await loadSong();
     await playSong();
 
-    
+
 }
 
 async function nextSong() {
@@ -106,12 +167,12 @@ function setProgress(e) {
     const clickX = e.offsetX
     const duration = audio.duration
 
-    audio.currentTime = (clickX/width) * duration
+    audio.currentTime = (clickX / width) * duration
 }
 
-slider.oninput = function(){
+slider.oninput = function () {
     progressBar.value = slider.value;
-    sliderValue = document.querySelector('.sliderValue');
+    
     sliderValue.innerHTML = slider.value;
     audio.volume = slider.value / 100;
 
@@ -123,7 +184,7 @@ async function getSongs() {
         let res = await fetch(url);
         return await res.json();
         //loadSong(songs[songIndex]);
-        
+
     } catch (error) {
         console.log(error);
     }
@@ -175,6 +236,7 @@ muteBtn.addEventListener('click', () => {
 })
 
 //Change song events
+
 prevBtn.addEventListener('click', prevSong);
 nextBtn.addEventListener('click', nextSong);
 
