@@ -2,7 +2,7 @@
  
 ## IN PROGRESS
 
-This is a Web Music Player/SpotifyReplica which first started as project for my university class "Distributed Applications" and now developing it for fun.
+This is a Web Music Player/SpotifyReplica which first started as project for my university class "Distributed Applications" and now I am developing it for fun.
 It consists of an REST API that is the connecting link between the database and the web application.
 All CRUD operations built in the web app go through the API.
 
