@@ -123,6 +123,7 @@
     background-color: #282828;
     align-items: center;
     flex-direction: column;
+    border-top: 1px solid #fff;
 }
 .music-info h4{sliderValue = document.querySelector('.sliderValue');
     margin:0;
@@ -132,7 +133,7 @@
 .music-container.play .music-info {
     opacity: 1;
     transform: translateY(-100%);
-    padding: 5px 60px 5px 190px;
+    padding: 5px 60px 5px 17.8%;
 }
 
 .progress-container{
@@ -278,12 +279,12 @@ header{
     display: flex;
     justify-content: space-evenly;
     flex-direction: row;
-    margin-bottom: 50px;
+    margin-bottom: 44px;
 }
 
 .songContainer h2{
     margin-left:10%;
-    margin-bottom:50px;
+    margin-bottom:25px;
     color:#ffffff;
 }
 

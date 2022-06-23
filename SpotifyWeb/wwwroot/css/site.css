@@ -86,9 +86,14 @@ audio {
     
 }
 
-/*.card {
-    cursor: pointer;
-}*/
+.card {
+    height:21rem;
+    border:4px solid white;
+}
+.card-img-top{
+    width:200px;
+    height:200px;
+}
 .pointer {
     cursor: pointer;
 }
