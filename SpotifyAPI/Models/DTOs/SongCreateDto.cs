@@ -20,9 +20,6 @@ namespace SpotifyAPI.Models.DTOs
         public int RuntimeInSeconds { get; set; }
         [Required]
         public bool IsExplicit { get; set; }
-        [Required]
-        [StringLength(2048)]
-        public string SongUrl { get; set; }
 
         [Required]
         public int AlbumId { get; set; }

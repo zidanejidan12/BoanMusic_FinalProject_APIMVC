@@ -19,9 +19,7 @@ namespace SpotifyAPI.Models
         public int RuntimeInSeconds { get; set; }       
         [Required]
         public bool IsExplicit { get; set; }
-        [Required]
-        [StringLength(2048)]
-        public string SongUrl { get; set; }
+
 
         public bool IsHidden { get; set; } = false;
 
