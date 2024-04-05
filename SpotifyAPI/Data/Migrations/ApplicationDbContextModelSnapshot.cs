@@ -134,6 +134,35 @@ namespace SpotifyAPI.Migrations
                     b.ToTable("Songs");
                 });
 
+            modelBuilder.Entity("SpotifyAPI.Models.User", b =>
+                {
+                    b.Property<int>("User_ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime?>("Date_of_Birth")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<byte[]>("Password")
+                        .HasColumnType("varbinary(max)");
+
+                    b.Property<string>("User_Type")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Username")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("User_ID");
+
+                    b.ToTable("Users");
+                });
+
             modelBuilder.Entity("SpotifyAPI.Models.Album", b =>
                 {
                     b.HasOne("SpotifyAPI.Models.Artist", "Artist")

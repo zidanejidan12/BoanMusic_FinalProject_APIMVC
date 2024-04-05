@@ -1,5 +1,3 @@
-using System;
-
 namespace SpotifyWeb.Models
 {
     public class ErrorViewModel

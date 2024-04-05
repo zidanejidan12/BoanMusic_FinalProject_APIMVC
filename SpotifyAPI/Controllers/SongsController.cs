@@ -4,7 +4,9 @@ using Microsoft.AspNetCore.Mvc;
 using SpotifyAPI.Models;
 using SpotifyAPI.Models.DTOs;
 using SpotifyAPI.Repository.IRepository;
+using System;
 using System.Collections.Generic;
+using System.IO;
 
 namespace SpotifyAPI.Controllers
 {
@@ -145,6 +147,27 @@ namespace SpotifyAPI.Controllers
 
             return NoContent();
 
+        }
+
+        [HttpGet("{filename}", Name = "GetSongFile")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status409Conflict)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public IActionResult GetAudioFile(string filename)
+        {
+            // Combine the wwwroot path with the requested filename
+            var audioPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "music", filename);
+            Console.WriteLine(audioPath);
+
+            // Check if the file exists
+            if (!System.IO.File.Exists(audioPath))
+            {
+                return NotFound(); // Return 404 if file not found
+            }
+
+            // Return the audio file
+            return PhysicalFile(audioPath, "audio/mpeg"); // Adjust content type according to your audio type
         }
 
         [HttpDelete("{songId:int}", Name = "DeleteSong")]

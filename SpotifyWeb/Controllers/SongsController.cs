@@ -2,7 +2,6 @@
 using SpotifyWeb.Models;
 using SpotifyWeb.Models.ViewModel;
 using SpotifyWeb.Repository.IRepository;
-using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -57,34 +56,39 @@ namespace SpotifyWeb.Controllers
         {
             return Json(new { data = await _songRepo.GetAllAsync(SD.SongAPIPath) });
         }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Upsert(SongsVM obj)
         {
             if (ModelState.IsValid)
             {
-                var file = HttpContext.Request.Form.Files;
-                if (file.Count > 0)
+                var file = HttpContext.Request.Form.Files.FirstOrDefault();
+                if (file != null && file.Length > 0)
                 {
-                    obj.Song.SongMP3 = file[0].FileName;
+                    // Get the file name
+                    var fileName = Path.GetFileName(file.FileName);
 
+                    // Define the directory path where the file will be saved
+                    var directoryPath = @"D:\Users\bsi80210\source\repos\Covers\WebMusicPlayer-SpotifyReplica\SpotifyAPI\wwwroot\music";
 
+                    // Check if the directory exists, if not, create it
+                    if (!Directory.Exists(directoryPath))
+                    {
+                        Directory.CreateDirectory(directoryPath);
+                    }
 
-                    //obj. = Path.Combine(
-                    //    Microsoft.AspNetCore.Server.MapPath("~/App_Data/uploads"), fileName);
-                    //file.SaveAs(assignment.FileLocation);
-                    //byte[] p1 = null;
-                    //var fs2 = file[0].FileName;
-                    //using (var fs1 = file[0].OpenReadStream())
-                    //{
-                    //    using (var ms1 = new MemoryStream())
-                    //    {
-                    //        fs1.CopyTo(ms1);
-                    //        p1 = ms1.ToArray();
-                    //    }
+                    // Define the path where the file will be saved
+                    var filePath = Path.Combine(directoryPath, fileName);
 
-                    //}
-                    //obj.Song.SongMP3 = p1;
+                    // Save the file to the server
+                    using (var stream = new FileStream(filePath, FileMode.Create))
+                    {
+                        await file.CopyToAsync(stream);
+                    }
+
+                    // Set the file name to the SongMP3 property
+                    obj.Song.SongMP3 = fileName;
                 }
                 else
                 {
@@ -92,13 +96,8 @@ namespace SpotifyWeb.Controllers
                     obj.Song.SongMP3 = objFromDb.SongMP3;
                 }
 
-
-
-
-
-                if (obj.Song.Id==0)
+                if (obj.Song.Id == 0)
                 {
-                    
                     await _songRepo.CreateAsync(SD.SongAPIPath, obj.Song);
                 }
                 else
@@ -106,7 +105,6 @@ namespace SpotifyWeb.Controllers
                     await _songRepo.UpdateAsync(SD.SongAPIPath + obj.Song.Id, obj.Song);
                 }
                 return RedirectToAction(nameof(Index));
-                
             }
             else
             {
@@ -123,6 +121,7 @@ namespace SpotifyWeb.Controllers
                 return View(objVM);
             }
         }
+
         [HttpDelete]
         public async Task<IActionResult> Delete(int id)
         {

@@ -17,7 +17,12 @@ namespace SpotifyAPI.SpotifyMapper
 
             CreateMap<Song, SongDto>().ReverseMap();
             CreateMap<Song, SongCreateDto>().ReverseMap();
-            CreateMap<Song, SongUpdateDto>().ReverseMap();          
+            CreateMap<Song, SongUpdateDto>().ReverseMap();  
+
+            CreateMap<User, UserDto>().ReverseMap();
+            CreateMap<User, UserCreateDto>().ReverseMap();
+            CreateMap<User, UserUpdateDto>().ReverseMap();
+            CreateMap<User, UserLoginDto>().ReverseMap();        
         }
     }
 }

@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using SpotifyWeb.Models;
 using SpotifyWeb.Repository.IRepository;
-using System.IO;
 using System.Threading.Tasks;
 
 namespace SpotifyWeb.Controllers

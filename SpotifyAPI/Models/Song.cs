@@ -23,8 +23,6 @@ namespace SpotifyAPI.Models
 
         public bool IsHidden { get; set; } = false;
 
-
-
         [Required]
         public int AlbumId { get; set; }
         [ForeignKey("AlbumId")]

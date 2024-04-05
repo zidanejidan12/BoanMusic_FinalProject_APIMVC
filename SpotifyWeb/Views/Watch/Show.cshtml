@@ -1,0 +1,171 @@
+﻿@model SpotifyWeb.Models.ViewModel.SongsVM
+
+<head>
+    <link rel="stylesheet" href="/css/webplayer.css" />
+    <style>
+        /* Adjust track image size and center */
+        .track-image {
+            display: flex;
+            justify-content: center; /* Center horizontally */
+            align-items: center;
+            height: 90vh;
+        }
+
+            .track-image img {
+                max-width: 40%;
+                height: auto;
+                margin-left: 220px;
+            }
+
+        /* Style for small track image */
+        .track-image-small {
+            width: 30px; /* Adjust the width of the small image */
+            height: auto;
+            margin-right: 10px; /* Add margin to separate the image from text */
+        }
+
+        /* Style for track info */
+        .track-info {
+            display: inline-block;
+            vertical-align: middle;
+            color: white; /* White text */
+            margin: 0;
+        }
+
+
+        /* Style for song queue list */
+        .song-queue {
+            background-color: #3a3b3c; /* Grayish background */
+            padding: 30px;
+            border-radius: 5px;
+        }
+
+            .song-queue ul {
+                list-style-type: none;
+                padding: 0px;
+                width: 100%
+            }
+
+            .song-queue li {
+                margin-bottom: 7px; /* Add margin between list items */
+                cursor: pointer;
+                color: white; /* White text */
+                width: 100%; /* Make list items take full width */
+                background-color: #3a3b3c; /* Light gray background */
+                padding: 2px;
+                text-align: left; /* Center text horizontally */
+                margin: 0;
+            }
+
+                .song-queue li:hover {
+                    background-color: #ccc; /* Light gray background on hover */
+                }
+    </style>
+</head>
+
+<div class="sidebar-div">
+    <div class="sidebar">
+        <h2>Spotify</h2>
+        <ul class="nomargin">
+            <li>
+                <a href="/home/index">
+                    <i class="fas fa-house"></i>
+                    <span>Home</span>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <i class="fas fa-magnifying-glass"></i>
+                    <span>Search</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>
+
+<div class="row">
+    <!-- Large track image -->
+    <div class="col-md-8">
+        <div class="track-image">
+            <img src="@Model.Song.ImageSongURL" alt="@Model.Song.Title">
+        </div>
+    </div>
+
+    <!-- Song queue on the right -->
+    <div class="song-queue">
+        <h2>Song Queue</h2>
+        <ul>
+            @foreach (var song in Model.SongQueue)
+            {
+                <li>
+                    <!-- Include the small image for the track -->
+                    <img src="@song.ImageSongURL" alt="@song.Title" class="track-image-small">
+                    <!-- Display title followed by artist name -->
+                    <div class="track-info">
+                        <p><strong>@song.Title</strong></p>
+                        <p>@(song.Album.Artist.FName) @(song.Album.Artist.LName)</p>
+                    </div>
+                </li>
+            }
+        </ul>
+    </div>
+
+</div>
+
+<footer class="footer">
+
+
+    <div class="music-container">
+        <div class="music-info">
+            <h4 id="title">Ukelele</h4>
+            <div class="progress-container">
+                <div class="progress"> </div>
+            </div>
+        </div>
+        <audio src="music/Nirvana - Lithium.mp3" id="audio"></audio>
+        <div class="img-container">
+            <img src="image/music_background_2_203133.jpg" alt="music-cover" id="cover" />
+        </div>
+        <div class="navigation">
+            <button id="prev" class="action-btn">
+                <i class="fas fa-backward"></i>
+            </button>
+            <button id="play" class="action-btn action-btn-big">
+                <i class="fas fa-play"></i>
+            </button>
+            <button id="next" class="action-btn">
+                <i class="fas fa-forward"></i>
+            </button>
+            <button id="mute" class="action-btn">
+                <i class="fas fa-volume-high"></i>
+                @*<i class="fas fa-volume-xmark"></i>*@
+            </button>
+        </div>
+        <div class="slider-cont">
+            <div class="slider">
+                <input type="range" min="0" max="100" value="50" />
+                <progress min="0" max="100" value="50"></progress>
+            </div>
+            <div class="sliderValue">50</div>
+        </div>
+    </div>
+
+
+    <script src="~/js/webplayer.js"></script>
+
+</footer>
+
+@section Scripts {
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            // jQuery script to handle clicking on a song in the queue
+            $(".song-queue li").click(function () {
+                // Retrieve the song title from the clicked list item
+                var songTitle = $(this).text();
+                // Example: Display an alert with the clicked song title
+                alert("You clicked on: " + songTitle);
+            });
+        });
+    </script>
+}

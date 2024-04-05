@@ -21,6 +21,10 @@ using System.IO;
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Microsoft.Extensions.Options;
 using Swashbuckle.AspNetCore.SwaggerGen;
+using SpotifyAPI.Services;
+using System.Text;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
 
 namespace SpotifyAPI
 {
@@ -41,8 +45,41 @@ namespace SpotifyAPI
             services.AddScoped<ISongRepository, SongRepository>();
             services.AddScoped<IArtistRepository, ArtistRepository>();
             services.AddScoped<IAlbumRepository, AlbumRepository>();
+            services.AddScoped<IUserRepository, UserRepository>();
             services.AddAutoMapper(typeof(SpotifyMappings));
-            
+
+            // JwtHelper registration
+            services.AddSingleton<JwtHelper>(_ =>
+            {
+                var jwtSettings = Configuration.GetSection("Jwt");
+                var secretKey = jwtSettings["Secret"];
+                return new JwtHelper(secretKey);
+            });
+
+            // JWT authentication setup
+            var jwtSettings = Configuration.GetSection("Jwt");
+            var secretKey = jwtSettings["Secret"];
+            var key = Encoding.ASCII.GetBytes(secretKey);
+
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                .AddJwtBearer(options =>
+                {
+                    options.RequireHttpsMetadata = false;
+                    options.SaveToken = true;
+                    options.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidateIssuerSigningKey = true,
+                        IssuerSigningKey = new SymmetricSecurityKey(key),
+                        ValidateIssuer = false,
+                        ValidateAudience = false
+                    };
+                });
+
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy("RegularPolicy", policy => policy.RequireRole("regular"));
+                options.AddPolicy("PremiumPolicy", policy => policy.RequireRole("premium"));
+            });
 
             services.AddApiVersioning(options =>
             {
@@ -94,6 +131,8 @@ namespace SpotifyAPI
             //});
 
             app.UseRouting();
+
+            app.UseAuthentication();
 
             app.UseAuthorization();
 

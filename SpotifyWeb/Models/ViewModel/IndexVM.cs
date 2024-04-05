@@ -7,7 +7,6 @@ namespace SpotifyWeb.Models.ViewModel
     {
         public IEnumerable<Song> SongList { get; set; }
         public IEnumerable<Album> AlbumList { get; set; }
-
         public IEnumerable<Artist> ArtistList { get; set; }
         public bool IsHidden { get; set; }
         public IEnumerable<string> Genres { get; set; }

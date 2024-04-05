@@ -23,5 +23,5 @@ namespace SpotifyAPI.Models
         public int ArtistId { get; set; }
         [ForeignKey("ArtistId")]
         public Artist Artist { get; set; }
-    }
+    }               
 }
